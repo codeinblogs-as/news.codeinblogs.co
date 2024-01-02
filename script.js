@@ -1,16 +1,38 @@
-const API_KEY = "48e078cba4a43ce1940c51b4e2d67974";
+
+let API_KEY = "";
 const baseURL = "https://gnews.io/api/v4/";
 
+function getCurrentHour() {
+  return new Date().getHours();
+}
+
+function setAPIKey() {
+  const currentHour = getCurrentHour();
+
+  if (currentHour >= 6 && currentHour < 9) {
+    API_KEY = "e46cbc025fa95601f6ed5b05f5ad05b0";
+  } else if (currentHour >= 9 && currentHour < 12) {
+    API_KEY = "32689ac2383d6da40322a2d1a73f197e";
+  } else if (currentHour >= 12 && currentHour < 16) {
+    API_KEY = "0ca3b453d7fc59042d9beeb8e053711d";
+  } else {
+    API_KEY = "48e078cba4a43ce1940c51b4e2d67974";
+  }
+}
+
+setAPIKey();
+
 async function fetchData(query) {
+  setAPIKey(); // Update the API key before making a request
   const url = `${baseURL}search?q=${query}&lang=en&country=us&max=10&apikey=${API_KEY}`;
   const res = await fetch(url);
   const data = await res.json();
   return data;
 }
 
+
 fetchData("all").then((data) => renderMain(data.articles));
 
-// menu btn
 let mobilemenu = document.querySelector(".mobile");
 let menuBtn = document.querySelector(".menuBtn");
 let menuBtnDisplay = true;
@@ -19,7 +41,6 @@ menuBtn.addEventListener("click", () => {
   mobilemenu.classList.toggle("hidden");
 });
 
-// rendering Tech news
 function renderMain(arr) {
   let mainHTML = "";
   for (let i = 0; i < arr.length; i++) {
@@ -67,3 +88,5 @@ async function Search(query) {
   const data = await fetchData(query);
   renderMain(data.articles);
 }
+
+
