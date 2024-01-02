@@ -1,4 +1,3 @@
-
 let API_KEY = "";
 const baseURL = "https://gnews.io/api/v4/";
 
@@ -30,7 +29,6 @@ async function fetchData(query) {
   return data;
 }
 
-
 fetchData("all").then((data) => renderMain(data.articles));
 
 let mobilemenu = document.querySelector(".mobile");
@@ -47,7 +45,7 @@ function renderMain(arr) {
     if (arr[i].image) {
       mainHTML += `
         <div class="card">
-          <a href=${arr[i].url}>
+          <a href=${arr[i].url} target="_blank">
             <center><img src=${arr[i].image} lazy="loading" /></center>
             <h4>${arr[i].title}</h4>
             <div class="publishbyDate">
@@ -61,6 +59,22 @@ function renderMain(arr) {
           </a>
         </div>
       `;
+
+      // Insert ad after every 3 news cards
+      if ((i + 1) % 3 === 0) {
+        mainHTML += `
+          <center><script type="text/javascript">
+            atOptions = {
+              'key' : 'dd21beec102bcd28a391716abc1e9d2d',
+              'format' : 'iframe',
+              'height' : 50,
+              'width' : 320,
+              'params' : {}
+            };
+            document.write('<scr' + 'ipt type="text/javascript" src="//difficultywithhold.com/dd21beec102bcd28a391716abc1e9d2d/invoke.js"></scr' + 'ipt>');
+          </script></center>
+        `;
+      }
     }
   }
 
@@ -88,5 +102,3 @@ async function Search(query) {
   const data = await fetchData(query);
   renderMain(data.articles);
 }
-
-
