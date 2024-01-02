@@ -13,7 +13,7 @@ function setAPIKey() {
   } else if (currentHour >= 9 && currentHour < 12) {
     API_KEY = "32689ac2383d6da40322a2d1a73f197e";
   } else if (currentHour >= 12 && currentHour < 16) {
-    API_KEY = "0ca3b453d7fc59042d9beeb8e053711d";
+    API_KEY = "0525e68eac7877f4e62243a3c031fd6c";
   } else {
     API_KEY = "0525e68eac7877f4e62243a3c031fd6c";
   }
