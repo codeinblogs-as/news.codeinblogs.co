@@ -102,5 +102,10 @@ searchBtnMobile.addEventListener("submit", async (e) => {
 
 async function Search(query) {
   const data = await fetchData(query);
-  renderMain(data.articles);
+  
+  if (data.articles && data.articles.length > 0) {
+    renderMain(data.articles);
+  } else {
+    document.querySelector("main").innerHTML = '<p style="color:red; font-size:1rem; font-weight:600;">No news found on this topic. Please try a different search term.</p>';
+  }
 }
