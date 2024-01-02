@@ -15,7 +15,7 @@ function setAPIKey() {
   } else if (currentHour >= 12 && currentHour < 16) {
     API_KEY = "0ca3b453d7fc59042d9beeb8e053711d";
   } else {
-    API_KEY = "48e078cba4a43ce1940c51b4e2d67974";
+    API_KEY = "0525e68eac7877f4e62243a3c031fd6c";
   }
 }
 
