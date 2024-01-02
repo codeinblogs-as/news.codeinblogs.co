@@ -21,6 +21,8 @@ function setAPIKey() {
 
 setAPIKey();
 
+
+
 async function fetchData(query) {
   setAPIKey(); // Update the API key before making a request
   const url = `${baseURL}search?q=${query}&lang=en&country=us&max=10&apikey=${API_KEY}`;
