@@ -29,12 +29,11 @@ CookieConsent.run({
         translations: {
             en: {
                 consentModal: {
-                    title: "Hello traveller, it's cookie time!",
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
+                    title: "Welcome To News Website by CodeINBlogs, it's cookie time!",
+                    description: "This website uses cookies to enhance your browsing experience and provide personalized content. By clicking Accept, you consent to the use of cookies.",
                     acceptAllBtn: "Accept all",
                     acceptNecessaryBtn: "Reject all",
                     showPreferencesBtn: "Manage preferences",
-                    footer: "<a href=\"#link\">Privacy Policy</a>\n<a href=\"#link\">Terms and conditions</a>",
                     closeIconLabel: "Reject all and close"
                 },
                 preferencesModal: {
@@ -47,31 +46,30 @@ CookieConsent.run({
                     sections: [
                         {
                             title: "Cookie Usage",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                            description: "At our platform, we use cookies to enhance your experience and provide personalized content. This page explains how we use cookies, what information they gather, and how you can control your cookie preferences."
                         },
                         {
                             title: "Strictly Necessary Cookies <span class=\"pm__badge\">Always Enabled</span>",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                            linkedCategory: "necessary"
+                            description: " Essential for the basic functioning of the website. They enable features like page navigation, access to secure areas, and basic functionality."
                         },
                         {
                             title: "Functionality Cookies",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                            description: "Enhance the functionality of the website by remembering user preferences and choices.",
                             linkedCategory: "functionality"
                         },
                         {
                             title: "Analytics Cookies",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                            description: " Collect information about how visitors use the website. This data helps in improving the website's performance and user experience.",
                             linkedCategory: "analytics"
                         },
                         {
                             title: "Advertisement Cookies",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                            description: "Used to deliver targeted advertisements based on user interests and behavior.",
                             linkedCategory: "marketing"
                         },
                         {
                             title: "More information",
-                            description: "For any query in relation to my policy on cookies and your choices, please <a class=\"cc__link\" href=\"#yourdomain.com\">contact me</a>."
+                            description: "For any query in relation to my policy on cookies and your choices, please <a class=\"cc__link\" href=\"anshul.codeinblogs.co\">contact us</a>."
                         }
                     ]
                 }
