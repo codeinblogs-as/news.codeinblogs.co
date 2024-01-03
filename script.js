@@ -1,5 +1,3 @@
-// This version removes the time - based API key selection logic and simply iterates through the API keys in order.It retries with the next key if the initial request doesn't return any results.
-
 let API_KEYS = [
   "e46cbc025fa95601f6ed5b05f5ad05b0",
   "32689ac2383d6da40322a2d1a73f197e",
@@ -16,7 +14,17 @@ function getNextApiKey() {
   return apiKey;
 }
 
+function showLoader() {
+  document.getElementById("loader").style.display = "block";
+}
+
+function hideLoader() {
+  document.getElementById("loader").style.display = "none";
+}
+
 async function fetchData(query) {
+  showLoader(); // Show loader before making a request
+
   const apiKey = getNextApiKey();
   const url = `${baseURL}search?q=${query}&lang=en&country=us&max=10&apikey=${apiKey}`;
   const res = await fetch(url);
@@ -25,20 +33,20 @@ async function fetchData(query) {
   // Retry with the next API key if no results are found
   if (!data.articles || data.articles.length === 0) {
     const nextApiKey = getNextApiKey();
-    const retryUrl = `${baseURL}search?q=${query}&lang=en&country=us&max=10&apikey=${nextApiKey}`;
+    const retryUrl = `${baseURL}search?q=${query}&lang=en&&max=10&apikey=${nextApiKey}`;
     const retryRes = await fetch(retryUrl);
     const retryData = await retryRes.json();
 
+    hideLoader(); // Hide loader after content is loaded
     return retryData;
   }
 
+  hideLoader(); // Hide loader after content is loaded
   return data;
 }
 
+// Initial loading
 fetchData("all").then((data) => renderMain(data.articles));
-
-
-
 
 let mobilemenu = document.querySelector(".mobile");
 let menuBtn = document.querySelector(".menuBtn");
@@ -68,22 +76,6 @@ function renderMain(arr) {
           </a>
         </div>
       `;
-
-      // Insert ad after every 3 news cards
-      if ((i + 1) % 3 === 0) {
-        mainHTML += `
-          <center><script type="text/javascript">
-            atOptions = {
-              'key' : 'dd21beec102bcd28a391716abc1e9d2d',
-              'format' : 'iframe',
-              'height' : 50,
-              'width' : 320,
-              'params' : {}
-            };
-            document.write('<scr' + 'ipt type="text/javascript" src="//difficultywithhold.com/dd21beec102bcd28a391716abc1e9d2d/invoke.js"></scr' + 'ipt>');
-          </script></center>
-        `;
-      }
     }
   }
 
