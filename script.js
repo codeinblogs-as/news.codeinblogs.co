@@ -1,37 +1,44 @@
-let API_KEY = "";
+// This version removes the time - based API key selection logic and simply iterates through the API keys in order.It retries with the next key if the initial request doesn't return any results.
+
+let API_KEYS = [
+  "e46cbc025fa95601f6ed5b05f5ad05b0",
+  "32689ac2383d6da40322a2d1a73f197e",
+  "23e15b71f3261e80310eb874b6e8f823",
+  "48e078cba4a43ce1940c51b4e2d67974"
+];
+let currentApiKeyIndex = 0;
+
 const baseURL = "https://gnews.io/api/v4/";
 
-function getCurrentHour() {
-  return new Date().getHours();
+function getNextApiKey() {
+  const apiKey = API_KEYS[currentApiKeyIndex];
+  currentApiKeyIndex = (currentApiKeyIndex + 1) % API_KEYS.length;
+  return apiKey;
 }
-
-function setAPIKey() {
-  const currentHour = getCurrentHour();
-
-  if (currentHour >= 6 && currentHour < 9) {
-    API_KEY = "e46cbc025fa95601f6ed5b05f5ad05b0";
-  } else if (currentHour >= 9 && currentHour < 12) {
-    API_KEY = "32689ac2383d6da40322a2d1a73f197e";
-  } else if (currentHour >= 12 && currentHour < 16) {
-    API_KEY = "0525e68eac7877f4e62243a3c031fd6c";
-  } else {
-    API_KEY = "0525e68eac7877f4e62243a3c031fd6c";
-  }
-}
-
-setAPIKey();
-
-
 
 async function fetchData(query) {
-  setAPIKey(); // Update the API key before making a request
-  const url = `${baseURL}search?q=${query}&lang=en&country=us&max=10&apikey=${API_KEY}`;
+  const apiKey = getNextApiKey();
+  const url = `${baseURL}search?q=${query}&lang=en&country=us&max=10&apikey=${apiKey}`;
   const res = await fetch(url);
   const data = await res.json();
+
+  // Retry with the next API key if no results are found
+  if (!data.articles || data.articles.length === 0) {
+    const nextApiKey = getNextApiKey();
+    const retryUrl = `${baseURL}search?q=${query}&lang=en&country=us&max=10&apikey=${nextApiKey}`;
+    const retryRes = await fetch(retryUrl);
+    const retryData = await retryRes.json();
+
+    return retryData;
+  }
+
   return data;
 }
 
 fetchData("all").then((data) => renderMain(data.articles));
+
+
+
 
 let mobilemenu = document.querySelector(".mobile");
 let menuBtn = document.querySelector(".menuBtn");
@@ -109,6 +116,3 @@ async function Search(query) {
     document.querySelector("main").innerHTML = '<p style="color:red; font-size:1rem; font-weight:600;">No news found on this topic. Please try a different search term.</p>';
   }
 }
-
-
-
