@@ -5,6 +5,7 @@ let API_KEYS = [
   "48e078cba4a43ce1940c51b4e2d67974"
 ];
 let currentApiKeyIndex = 0;
+let selectedCountry = "in"; // Default country is set to "India"
 
 const baseURL = "https://gnews.io/api/v4/";
 
@@ -26,14 +27,14 @@ async function fetchData(query) {
   showLoader(); // Show loader before making a request
 
   const apiKey = getNextApiKey();
-  const url = `${baseURL}search?q=${query}&lang=en&country=us&max=10&apikey=${apiKey}`;
+  const url = `${baseURL}search?q=${query}&lang=en&country=${selectedCountry}&max=10&apikey=${apiKey}`;
   const res = await fetch(url);
   const data = await res.json();
 
   // Retry with the next API key if no results are found
   if (!data.articles || data.articles.length === 0) {
     const nextApiKey = getNextApiKey();
-    const retryUrl = `${baseURL}search?q=${query}&lang=en&&max=10&apikey=${nextApiKey}`;
+    const retryUrl = `${baseURL}search?q=${query}&lang=en&country=${selectedCountry}&max=10&apikey=${nextApiKey}`;
     const retryRes = await fetch(retryUrl);
     const retryData = await retryRes.json();
 
@@ -54,6 +55,15 @@ let menuBtnDisplay = true;
 
 menuBtn.addEventListener("click", () => {
   mobilemenu.classList.toggle("hidden");
+});
+
+// Added country selection functionality
+const countrySelect = document.getElementById("countrySelect","countrySelectMobile");
+
+countrySelect.addEventListener("change", () => {
+  selectedCountry = countrySelect.value;
+  // Reload news based on the selected country
+  fetchData("all").then((data) => renderMain(data.articles));
 });
 
 function renderMain(arr) {
