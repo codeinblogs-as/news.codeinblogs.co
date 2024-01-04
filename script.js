@@ -1,1 +1,120 @@
-const _0x172e2f = _0x37a2; (function (_0xf7e7a7, _0x530d36) { const _0x4c82cc = _0x37a2, _0x36a4f9 = _0xf7e7a7(); while (!![]) { try { const _0x595ddc = -parseInt(_0x4c82cc(0x208)) / 0x1 + -parseInt(_0x4c82cc(0x1d1)) / 0x2 + -parseInt(_0x4c82cc(0x1f7)) / 0x3 * (parseInt(_0x4c82cc(0x1d6)) / 0x4) + -parseInt(_0x4c82cc(0x1fe)) / 0x5 + -parseInt(_0x4c82cc(0x1f1)) / 0x6 + -parseInt(_0x4c82cc(0x200)) / 0x7 * (-parseInt(_0x4c82cc(0x1f6)) / 0x8) + -parseInt(_0x4c82cc(0x1d7)) / 0x9 * (-parseInt(_0x4c82cc(0x1d5)) / 0xa); if (_0x595ddc === _0x530d36) break; else _0x36a4f9['push'](_0x36a4f9['shift']()); } catch (_0x4ae67d) { _0x36a4f9['push'](_0x36a4f9['shift']()); } } }(_0x11aa, 0x4b075)); let API_KEYS = [_0x172e2f(0x1ef), _0x172e2f(0x1fa), _0x172e2f(0x1f0), _0x172e2f(0x1f5)], currentApiKeyIndex = 0x0, selectedCountry = 'in'; const baseURL = 'https://gnews.io/api/v4/'; function getNextApiKey() { const _0x19962f = _0x172e2f, _0x7fc17c = API_KEYS[currentApiKeyIndex]; return currentApiKeyIndex = (currentApiKeyIndex + 0x1) % API_KEYS[_0x19962f(0x1e7)], _0x7fc17c; } function showLoader() { const _0x330532 = _0x172e2f; document[_0x330532(0x1e0)](_0x330532(0x1e9))[_0x330532(0x1d9)][_0x330532(0x1e2)] = 'block'; } function hideLoader() { const _0xd739d = _0x172e2f; document[_0xd739d(0x1e0)](_0xd739d(0x1e9))[_0xd739d(0x1d9)][_0xd739d(0x1e2)] = _0xd739d(0x1e3); } async function fetchData(_0x3d8a03) { const _0x5e23f8 = _0x172e2f; showLoader(); const _0x43a65b = getNextApiKey(), _0x2719c6 = baseURL + _0x5e23f8(0x204) + _0x3d8a03 + _0x5e23f8(0x1e1) + selectedCountry + '&max=10&apikey=' + _0x43a65b, _0x40e559 = await fetch(_0x2719c6), _0x576426 = await _0x40e559[_0x5e23f8(0x1da)](); if (!_0x576426['articles'] || _0x576426[_0x5e23f8(0x1fc)][_0x5e23f8(0x1e7)] === 0x0) { const _0x83af70 = getNextApiKey(), _0x23ac41 = baseURL + _0x5e23f8(0x204) + _0x3d8a03 + _0x5e23f8(0x1e1) + selectedCountry + _0x5e23f8(0x1d4) + _0x83af70, _0x21263c = await fetch(_0x23ac41), _0x431d34 = await _0x21263c[_0x5e23f8(0x1da)](); return hideLoader(), _0x431d34; } return hideLoader(), _0x576426; } fetchData(_0x172e2f(0x1f8))[_0x172e2f(0x1fb)](_0x405b53 => renderMain(_0x405b53[_0x172e2f(0x1fc)])); let mobilemenu = document[_0x172e2f(0x1eb)](_0x172e2f(0x1e8)), menuBtn = document[_0x172e2f(0x1eb)](_0x172e2f(0x1f3)), menuBtnDisplay = !![]; menuBtn[_0x172e2f(0x20b)](_0x172e2f(0x1db), () => { const _0x5a0da8 = _0x172e2f; mobilemenu['classList'][_0x5a0da8(0x1ea)](_0x5a0da8(0x1d2)); }); function _0x37a2(_0x5ad0b6, _0x46c2e0) { const _0x11aa6b = _0x11aa(); return _0x37a2 = function (_0x37a2b6, _0x4dcce7) { _0x37a2b6 = _0x37a2b6 - 0x1d1; let _0x282383 = _0x11aa6b[_0x37a2b6]; return _0x282383; }, _0x37a2(_0x5ad0b6, _0x46c2e0); } const countrySelect = document[_0x172e2f(0x1e0)](_0x172e2f(0x1fd), _0x172e2f(0x1dd)); countrySelect[_0x172e2f(0x20b)](_0x172e2f(0x1ff), () => { const _0x28b843 = _0x172e2f; selectedCountry = countrySelect[_0x28b843(0x1e5)], fetchData('all')['then'](_0x91dbfa => renderMain(_0x91dbfa['articles'])); }); function renderMain(_0x1220a5) { const _0x33cd75 = _0x172e2f; let _0x4d86d0 = ''; for (let _0x4f6541 = 0x0; _0x4f6541 < _0x1220a5[_0x33cd75(0x1e7)]; _0x4f6541++) { _0x1220a5[_0x4f6541][_0x33cd75(0x1f9)] && (_0x4d86d0 += _0x33cd75(0x1e6) + _0x1220a5[_0x4f6541][_0x33cd75(0x1d8)] + _0x33cd75(0x206) + _0x1220a5[_0x4f6541][_0x33cd75(0x1f9)] + _0x33cd75(0x1dc) + _0x1220a5[_0x4f6541][_0x33cd75(0x1ec)] + '</h4>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22publishbyDate\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>' + _0x1220a5[_0x4f6541]['source'][_0x33cd75(0x1e4)] + _0x33cd75(0x202) + new Date(_0x1220a5[_0x4f6541][_0x33cd75(0x209)])[_0x33cd75(0x1ee)]() + _0x33cd75(0x1f2) + _0x1220a5[_0x4f6541][_0x33cd75(0x205)] + _0x33cd75(0x201)); } document[_0x33cd75(0x1eb)](_0x33cd75(0x203))[_0x33cd75(0x1f4)] = _0x4d86d0; } function _0x11aa() { const _0x51d069 = ['preventDefault', 'submit', 'getElementById', '&lang=en&country=', 'display', 'none', 'name', 'value', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22card\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<a\x20href=', 'length', '.mobile', 'loader', 'toggle', 'querySelector', 'title', 'searchForm', 'toLocaleDateString', 'e46cbc025fa95601f6ed5b05f5ad05b0', '23e15b71f3261e80310eb874b6e8f823', '200166jmUCIg', '</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22desc\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20', '.menuBtn', 'innerHTML', '48e078cba4a43ce1940c51b4e2d67974', '3357552wpPgVb', '691545rINaSc', 'all', 'image', '32689ac2383d6da40322a2d1a73f197e', 'then', 'articles', 'countrySelect', '1969100AeUWtQ', 'change', '7quUxrp', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</a>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20', '</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span>•</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>', 'main', 'search?q=', 'description', '\x20target=\x22_blank\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<center><img\x20src=', 'searchFormMobile', '15960tZeDYY', 'publishedAt', 'searchInputMobile', 'addEventListener', '270038QQnfcY', 'hidden', '<p\x20style=\x22color:red;\x20font-size:1rem;\x20font-weight:600;\x22>No\x20news\x20found\x20on\x20this\x20topic.\x20Please\x20try\x20a\x20different\x20search\x20term.</p>', '&max=10&apikey=', '20pVUMUG', '4eGRhLS', '3133341wMuccL', 'url', 'style', 'json', 'click', '\x20lazy=\x22loading\x22\x20/></center>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h4>', 'countrySelectMobile']; _0x11aa = function () { return _0x51d069; }; return _0x11aa(); } const searchBtn = document['getElementById'](_0x172e2f(0x1ed)), searchBtnMobile = document[_0x172e2f(0x1e0)](_0x172e2f(0x207)), searchInputMobile = document['getElementById'](_0x172e2f(0x20a)), searchInput = document['getElementById']('searchInput'); searchBtn['addEventListener'](_0x172e2f(0x1df), async _0x41f41d => { const _0x4f5fe9 = _0x172e2f; _0x41f41d[_0x4f5fe9(0x1de)](); const _0x28690a = await fetchData(searchInput[_0x4f5fe9(0x1e5)]); renderMain(_0x28690a['articles']); }), searchBtnMobile[_0x172e2f(0x20b)]('submit', async _0x20ae13 => { const _0x4d2a4a = _0x172e2f; _0x20ae13[_0x4d2a4a(0x1de)](); const _0x366444 = await fetchData(searchInputMobile[_0x4d2a4a(0x1e5)]); renderMain(_0x366444['articles']); }); async function Search(_0x3c8fb5) { const _0x84b1d = _0x172e2f, _0x3d1ce8 = await fetchData(_0x3c8fb5); _0x3d1ce8[_0x84b1d(0x1fc)] && _0x3d1ce8[_0x84b1d(0x1fc)][_0x84b1d(0x1e7)] > 0x0 ? renderMain(_0x3d1ce8[_0x84b1d(0x1fc)]) : document['querySelector']('main')[_0x84b1d(0x1f4)] = _0x84b1d(0x1d3); }
+let API_KEYS = [
+  "e46cbc025fa95601f6ed5b05f5ad05b0",
+  "32689ac2383d6da40322a2d1a73f197e",
+  "23e15b71f3261e80310eb874b6e8f823",
+  "48e078cba4a43ce1940c51b4e2d67974"
+];
+let currentApiKeyIndex = 0;
+let selectedCountry = "in"; // Default country is set to "India"
+
+const baseURL = "https://gnews.io/api/v4/";
+
+function getNextApiKey() {
+  const apiKey = API_KEYS[currentApiKeyIndex];
+  currentApiKeyIndex = (currentApiKeyIndex + 1) % API_KEYS.length;
+  return apiKey;
+}
+
+function showLoader() {
+  document.getElementById("loader").style.display = "block";
+}
+
+function hideLoader() {
+  document.getElementById("loader").style.display = "none";
+}
+
+async function fetchData(query) {
+  showLoader(); // Show loader before making a request
+
+  const apiKey = getNextApiKey();
+  const url = `${baseURL}search?q=${query}&lang=en&country=${selectedCountry}&max=10&apikey=${apiKey}`;
+  const res = await fetch(url);
+  const data = await res.json();
+
+  // Retry with the next API key if no results are found
+  if (!data.articles || data.articles.length === 0) {
+    const nextApiKey = getNextApiKey();
+    const retryUrl = `${baseURL}search?q=${query}&lang=en&country=${selectedCountry}&max=10&apikey=${nextApiKey}`;
+    const retryRes = await fetch(retryUrl);
+    const retryData = await retryRes.json();
+
+    hideLoader(); // Hide loader after content is loaded
+    return retryData;
+  }
+
+  hideLoader(); // Hide loader after content is loaded
+  return data;
+}
+
+// Initial loading
+fetchData("all").then((data) => renderMain(data.articles));
+
+let mobilemenu = document.querySelector(".mobile");
+let menuBtn = document.querySelector(".menuBtn");
+let menuBtnDisplay = true;
+
+menuBtn.addEventListener("click", () => {
+  mobilemenu.classList.toggle("hidden");
+});
+
+// Added country selection functionality
+const countrySelect = document.getElementById("countrySelect","countrySelectMobile");
+
+countrySelect.addEventListener("change", () => {
+  selectedCountry = countrySelect.value;
+  // Reload news based on the selected country
+  fetchData("all").then((data) => renderMain(data.articles));
+});
+
+function renderMain(arr) {
+  let mainHTML = "";
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].image) {
+      mainHTML += `
+        <div class="card">
+          <a href=${arr[i].url} target="_blank">
+            <center><img src=${arr[i].image} lazy="loading" /></center>
+            <h4>${arr[i].title}</h4>
+            <div class="publishbyDate">
+              <p>${arr[i].source.name}</p>
+              <span>•</span>
+              <p>${new Date(arr[i].publishedAt).toLocaleDateString()}</p>
+            </div>
+            <div class="desc">
+              ${arr[i].description}
+            </div>
+          </a>
+        </div>
+      `;
+    }
+  }
+
+  document.querySelector("main").innerHTML = mainHTML;
+}
+
+const searchBtn = document.getElementById("searchForm");
+const searchBtnMobile = document.getElementById("searchFormMobile");
+const searchInputMobile = document.getElementById("searchInputMobile");
+const searchInput = document.getElementById("searchInput");
+
+searchBtn.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = await fetchData(searchInput.value);
+  renderMain(data.articles);
+});
+
+searchBtnMobile.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = await fetchData(searchInputMobile.value);
+  renderMain(data.articles);
+});
+
+async function Search(query) {
+  const data = await fetchData(query);
+
+  if (data.articles && data.articles.length > 0) {
+    renderMain(data.articles);
+  } else {
+    document.querySelector("main").innerHTML = '<p style="color:red; font-size:1rem; font-weight:600;">No news found on this topic. Please try a different search term.</p>';
+  }
+}
