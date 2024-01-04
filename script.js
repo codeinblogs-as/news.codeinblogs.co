@@ -1,8 +1,8 @@
 let API_KEYS = [
   "e46cbc025fa95601f6ed5b05f5ad05b0",
-  "32689ac2383d6da40322a2d1a73f197e",
+  "48e078cba4a43ce1940c51b4e2d67974",
   "23e15b71f3261e80310eb874b6e8f823",
-  "48e078cba4a43ce1940c51b4e2d67974"
+  "32689ac2383d6da40322a2d1a73f197e"
 ];
 let currentApiKeyIndex = 0;
 let selectedCountry = "in"; // Default country is set to "India"
