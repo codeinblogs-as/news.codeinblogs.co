@@ -10,8 +10,8 @@
   <meta property="og:url" content="https://news.codeinblogs.co/">
   <link rel="shortcut icon" href="./icon.png" type="image/x-icon">
   <title>CodeINBlogs News</title>
-
-
+  <!---css style-->
+  <link rel="stylesheet" href="./style.css" />
   <!-- other -->
   <!--font awesome-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -23,21 +23,42 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"
     rel="stylesheet" />
-
-  <!---css style-->
-  <link rel="stylesheet" href="./style.css" />
-
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0-rc.17/dist/cookieconsent.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0-rc.17/dist/cookieconsent.css">
 </head>
-
-
-
 <body>
+  <div id="authenticate-form" class="authenticate-form hide">
+    <div class="forms-out">
+      <div class="forms-in">
+        <div id="registration-page" class="hide">
+          <button id="show-login">Sign In</button>
+          <h3>Sign Up</h3>
+          Email <br />
+          <input type="email" id="registration-email" /><br />
+          Confirm Email <br />
+          <input type="email" id="registration-reemail" autocomplete="disable" /><br />
+          Password <br />
+          <input type="password" id="registration-password" /><br />
+          <center><button id="register">Sign Up</button></center>
+        </div>
+       <div id="login-page">
+          <button id="show-register">Sign Up</button>
+          <h3>Sign In</h3>
+          Email <br />
+          <input type="email" id="login-email" /><br />
+          Password <br />
+          <input type="password" id="login-password" /><br />
+          <p id="forgot-password">Forgot Password</p>
+          <center><button id="login">Sign In</button></center>
+        </div>
+        <div id="homepage" class="hide">
+          <button id="signout">Sign Out</button>
+          <h3>Logged In</h3>
+        </div>
+      </div>
+    </div>
+  </div>
   <header>
     <img src="./logo.png" width="120px" style="border-radius: 10px;" />
-
     <div class="inputSearch desktop">
       <form id="searchForm">
         <input type="text" placeholder="Type to search..." id="searchInput" />
@@ -84,6 +105,10 @@
         <option value="gb">United Kingdom</option>
         <option value="us">United States</option>
       </select>
+    </div>
+    <button class="authenticate-btn" id="auth-btn">Log In</button>
+    <div id="user-greeting" class="user-greeting hide" style="color: whitesmoke;">
+      Hi <span id="user-username"></span>!
     </div>
     <div class="menuBtn">
       <i class="fa-solid fa-bars"></i>
@@ -139,7 +164,12 @@
         </select>
       </div>
     </div>
+    <button class="authenticate-btn authenticate-btn-mobile" id="auth-btn">Log In</button>
+
   </header>
+  <div id="user-greeting" class="user-greeting user-greeting-mobile hide" style="color: whitesmoke;">
+    Hi <span id="user-username"></span>!
+  </div>
 
 
   <!-- main  -->
@@ -148,8 +178,6 @@
   </center>
   </div>
   <main>
-    <!-- popunder -->
-    <!-- <script type='text/javascript' src='//difficultywithhold.com/9b/46/f9/9b46f913b1c004f64be4e3e0cf88a56c.js'></script> -->
   </main>
 
   <footer>
@@ -161,10 +189,216 @@
   <script src="script.js"></script>
   <!-- cookieconsent -->
   <script type="module" src="cookieconsent-config.js"></script>
+  <!-- authentication   -->
 
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use-->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+  <script>
+    document.querySelector(".authenticate-btn").addEventListener("click", () => {
+      toggleAuthenticationForm();
+    });
+
+    function toggleAuthenticationForm() {
+      const authenticateForm = document.getElementById("authenticate-form");
+      authenticateForm.classList.toggle("hide");
+    }
+  </script>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBOVRzf_NsNMBLknBDL2vYCimT1dOgvn3c",
+      authDomain: "news-codeinblogs.firebaseapp.com",
+      projectId: "news-codeinblogs",
+      storageBucket: "news-codeinblogs.appspot.com",
+      messagingSenderId: "901930281805",
+      appId: "1:901930281805:web:b3cef12805320be8206504",
+      measurementId: "G-E7DGTK1QD7"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script>
+    //invokes firebase authentication.
+    const auth = firebase.auth();
+
+    document.querySelector("#show-register").addEventListener("click", () => {
+      showRegistration();
+    });
+
+    const showRegistration = () => {
+      document.querySelector("#registration-page").classList.remove("hide");
+      document.querySelector("#login-page").classList.add("hide");
+      document.querySelector("#homepage").classList.add("hide");
+    };
+
+    document.querySelector("#show-login").addEventListener("click", () => {
+      showLogin();
+    });
+
+    const showLogin = () => {
+      document.querySelector("#registration-page").classList.add("hide");
+      document.querySelector("#login-page").classList.remove("hide");
+      document.querySelector("#homepage").classList.add("hide");
+    };
+
+    document.querySelector("#signout").addEventListener("click", () => {
+      signOut();
+    });
+
+    const register = () => {
+      const email = document.querySelector("#registration-email").value;
+      const reemail = document.querySelector("#registration-reemail").value;
+      const password = document.querySelector("#registration-password").value;
+
+      if (email.trim() == "") {
+        alert("Enter Email");
+      } else if (password.trim().length < 7) {
+        alert("Password must be at least 7 characters");
+      } else if (email != reemail) {
+        alert("emails do not match");
+      } else {
+        auth
+          .createUserWithEmailAndPassword(email, password)
+          .catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage);
+            // ...
+          });
+      }
+    };
+
+    document.querySelector("#register").addEventListener("click", () => {
+      register();
+    });
+
+    //register when you hit the enter key
+    document
+      .querySelector("#registration-password")
+      .addEventListener("keyup", (e) => {
+        if (event.keyCode === 13) {
+          e.preventDefault();
+
+          register();
+        }
+      });
+
+    const login = () => {
+      const email = document.querySelector("#login-email").value;
+      const password = document.querySelector("#login-password").value;
+
+      if (email.trim() == "") {
+        alert("Enter Email");
+      } else if (password.trim() == "") {
+        alert("Enter Password");
+      } else {
+        authenticate(email, password);
+      }
+    };
+
+    document.querySelector("#login").addEventListener("click", () => {
+      login();
+    });
+
+    //sign in when you hit enter
+    document
+      .querySelector("#login-password")
+      .addEventListener("keyup", (e) => {
+        if (event.keyCode === 13) {
+          e.preventDefault();
+
+          login();
+        }
+      });
+
+    const authenticate = (email, password) => {
+      const auth = firebase.auth();
+      auth.signInWithEmailAndPassword(email, password);
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(errorMessage);
+        });
+    };
+
+    const showHomepage = () => {
+      const authenticateForm = document.getElementById("authenticate-form");
+      const loginButton = document.getElementById("auth-btn");
+
+      authenticateForm.classList.add("hide");
+      loginButton.classList.add("hide"); // Hide the login button
+      document.querySelector("#registration-page").classList.add("hide");
+      document.querySelector("#login-page").classList.add("hide");
+      document.querySelector("#homepage").classList.remove("hide");
+    };
+    const signOut = () => {
+      firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          location.reload();
+        })
+        .catch(function (error) {
+          alert("error signing out, check network connection");
+        });
+    };
+
+    auth.onAuthStateChanged((firebaseUser) => {
+      if (firebaseUser) {
+        showHomepage();
+      }
+    });
+
+    document
+      .querySelector("#forgot-password")
+      .addEventListener("click", () => {
+        const email = document.querySelector("#login-email").value;
+        if (email.trim() == "") {
+          alert("Enter Email");
+        } else {
+          forgotPassword(email);
+        }
+      });
+
+    const forgotPassword = (email) => {
+      auth
+        .sendPasswordResetEmail(email)
+        .then(function () {
+          alert("email sent");
+        })
+        .catch(function (error) {
+          alert("invalid email or bad network connection");
+        });
+    };
+
+    auth.onAuthStateChanged((firebaseUser) => {
+      if (firebaseUser) {
+        // User is logged in
+        showHomepage();
+        const userGreeting = document.getElementById("user-greeting");
+        const userUsername = document.getElementById("user-username");
+        userUsername.innerText = firebaseUser.email; // You might want to display the actual username
+        userGreeting.classList.remove("hide");
+      } else {
+        // User is not logged in
+        const userGreeting = document.getElementById("user-greeting");
+        userGreeting.classList.add("hide");
+      }
+    });
+
+  </script>
+
+  <!-- main code ends -->
 
   <!-- other code  -->
-
 
   <!-- advertisement code  -->
 
@@ -190,6 +424,7 @@
 
     gtag('config', 'G-BK1VWZ53K8');
   </script>
+
 
 </body>
 
